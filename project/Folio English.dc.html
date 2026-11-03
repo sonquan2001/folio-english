@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/classical-87aaf82a-768a-4f2b-892d-abcc7e2d0fea/styles.css">
+<script src="_ds/classical-87aaf82a-768a-4f2b-892d-abcc7e2d0fea/_ds_bundle.js"></script>
+<style>body{margin:0;background:var(--color-surface);font-family:var(--font-body);color:var(--color-text)}a{color:var(--color-accent-700)}a:hover{color:var(--color-accent-800)}button{font-family:inherit}</style>
+</helmet>
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px;box-sizing:border-box">
+<div style="position:relative;width:390px;height:844px;flex:none;display:flex;flex-direction:column;background:var(--color-bg);border:1px solid var(--color-divider);border-radius:44px;box-shadow:var(--shadow-lg);overflow:hidden">
+
+<div style="height:48px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-size:13px;font-feature-settings:'tnum'">
+<span>9:41</span>
+<span style="font-family:var(--font-heading);font-size:15px;font-style:italic;color:var(--color-accent-700)">Folio</span>
+<span>100%</span>
+</div>
+
+<div style="flex:1;overflow-y:auto;padding:6px 24px 28px">
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:22px">
+<div>
+<div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent-700)">{{ dateLabel }}</div>
+<h1 style="font-family:var(--font-heading);font-weight:400;font-size:44px;line-height:1.02;margin:6px 0 0">Hôm nay</h1>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;font-size:13px">
+<span style="color:var(--color-neutral-700)">Mục tiêu ôn thẻ</span>
+<span style="font-feature-settings:'tnum'"><span style="font-family:var(--font-heading);font-size:22px">{{ reviewed }}</span> / {{ goal }}</span>
+</div>
+<div style="position:relative;height:3px;background:var(--color-neutral-200)">
+<div style="position:absolute;left:0;top:0;bottom:0;background:var(--color-accent);width:{{ goalPct }}"></div>
+</div>
+</div>
+<div style="border-top:1px solid var(--color-divider)">
+<sc-for list="{{ tasks }}" as="t" hint-placeholder-count="3">
+<button onClick="{{ t.onClick }}" style="width:100%;display:flex;align-items:center;gap:14px;padding:15px 0;background:none;border:0;border-bottom:1px solid var(--color-divider);text-align:left;cursor:pointer;color:var(--color-text)" style-hover="background:color-mix(in srgb, var(--color-accent) 6%, transparent)">
+<span style="width:24px;height:24px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid {{ t.ring }};color:var(--color-accent-700)">
+<sc-if value="{{ t.done }}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></sc-if>
+</span>
+<span style="flex:1;display:flex;flex-direction:column;gap:2px">
+<span style="font-family:var(--font-heading);font-weight:600;font-size:18px;line-height:1.2;text-decoration:{{ t.strike }}">{{ t.title }}</span>
+<span style="font-size:12.5px;color:var(--color-neutral-700)">{{ t.sub }}</span>
+</span>
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-neutral-500)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg>
+</button>
+</sc-for>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;padding:20px;border:1px solid var(--color-divider);outline:1px solid var(--color-divider);outline-offset:-6px;border-radius:var(--radius-md)">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<span style="font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent-700)">Câu của ngày</span>
+<button class="btn btn-ghost btn-icon" onClick="{{ speakSentence }}" aria-label="Nghe" style="width:36px;height:36px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"></path><path d="M16 9a5 5 0 0 1 0 6"></path><path d="M19.364 18.364a9 9 0 0 0 0-12.728"></path></svg></button>
+</div>
+<p style="margin:0;font-family:var(--font-heading);font-size:24px;line-height:1.2;font-style:italic;text-wrap:pretty">“It's not about having time. It's about making time.”</p>
+<sc-if value="{{ showVi }}" hint-placeholder-val="{{ false }}">
+<p style="margin:0;font-size:14px;line-height:1.5;color:var(--color-neutral-800)">Vấn đề không phải là có thời gian, mà là dành ra thời gian.</p>
+</sc-if>
+<button class="btn btn-ghost" onClick="{{ toggleVi }}" style="align-self:flex-start;font-size:13px">{{ viLabel }}</button>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px;padding-top:4px">
+<span style="font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent-700)">Từ đang khó nhớ</span>
+<div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
+<span style="font-family:var(--font-heading);font-size:30px;line-height:1.1">{{ hardWord.w }}</span>
+<span style="font-size:13px;color:var(--color-neutral-700)">{{ hardWord.ipa }}</span>
+</div>
+<span style="font-size:14px;color:var(--color-neutral-800)">{{ hardWord.vi }}</span>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isTopics }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:18px">
+<div>
+<div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent-700)">Topics · Chủ đề</div>
+<h1 style="font-family:var(--font-heading);font-weight:400;font-size:36px;line-height:1.05;margin:6px 0 0">Học theo chủ đề</h1>
+<p style="margin:8px 0 0;font-size:13.5px;line-height:1.5;color:var(--color-neutral-700);text-wrap:pretty">Mỗi chủ đề khoảng 15 phút: từ vựng, mẫu câu và một đoạn hội thoại ngắn.</p>
+</div>
+<div style="border-top:1px solid var(--color-divider)">
+<sc-for list="{{ topicList }}" as="t" hint-placeholder-count="6">
+<button onClick="{{ t.open }}" style="width:100%;display:grid;grid-template-columns:36px minmax(0,1fr) auto;align-items:center;gap:12px;padding:15px 0;background:none;border:0;border-bottom:1px solid var(--color-divider);text-align:left;cursor:pointer;color:var(--color-text)" style-hover="background:color-mix(in srgb, var(--color-accent) 6%, transparent)">
+<span style="font-family:var(--font-heading);font-size:26px;line-height:1;color:var(--color-accent);font-feature-settings:'tnum'">{{ t.num }}</span>
+<span style="display:flex;flex-direction:column;gap:2px;min-width:0">
+<span style="font-family:var(--font-heading);font-weight:600;font-size:20px;line-height:1.15">{{ t.en }}</span>
+<span style="font-size:13px;color:var(--color-neutral-700)">{{ t.vi }} · {{ t.meta }}</span>
+</span>
+<span style="display:flex;flex-direction:column;align-items:flex-end;gap:5px">
+<span style="font-size:12px;font-feature-settings:'tnum';color:var(--color-neutral-800)">{{ t.progress }}</span>
+<span style="position:relative;width:44px;height:3px;background:var(--color-neutral-200)"><span style="position:absolute;left:0;top:0;bottom:0;width:{{ t.pct }};background:var(--color-accent)"></span></span>
+</span>
+</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ inTopic }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:22px">
+<button class="btn btn-ghost" onClick="{{ goTopics }}" style="align-self:flex-start;margin-left:-6px;font-size:13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>Chủ đề</button>
+<div style="margin-top:-10px">
+<div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent-700);font-feature-settings:'tnum'">Chủ đề {{ topic.num }} · {{ topic.mins }} phút</div>
+<h1 style="font-family:var(--font-heading);font-weight:400;font-size:40px;line-height:1.02;margin:6px 0 0">{{ topic.en }}</h1>
+<div style="font-family:var(--font-heading);font-style:italic;font-size:20px;color:var(--color-neutral-700);margin-top:2px">{{ topic.vi }}</div>
+</div>
+
+<div style="display:flex;flex-direction:column">
+<div style="display:flex;justify-content:space-between;align-items:baseline;padding-bottom:8px;border-bottom:1px solid var(--color-text)">
+<span style="font-family:var(--font-heading);font-weight:600;font-size:19px">I. Words <span style="font-weight:400;font-style:italic;color:var(--color-neutral-700)">· Từ vựng</span></span>
+<span style="font-size:12px;color:var(--color-neutral-700);font-feature-settings:'tnum'">{{ topic.progress }}</span>
+</div>
+<sc-for list="{{ topic.words }}" as="w" hint-placeholder-count="6">
+<div style="display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--color-divider)">
+<span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:1px">
+<span style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap"><span style="font-family:var(--font-heading);font-weight:600;font-size:20px;line-height:1.15">{{ w.w }}</span><span style="font-size:12px;color:var(--color-neutral-600)">{{ w.ipa }}</span></span>
+<span style="font-size:13.5px;color:var(--color-neutral-800)"><span style="font-style:italic;color:var(--color-neutral-600)">{{ w.pos }}</span> {{ w.vi }}</span>
+</span>
+<sc-if value="{{ w.inBook }}" hint-placeholder-val="{{ false }}"><span title="Đã có trong sổ" style="color:var(--color-accent-700);display:flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span></sc-if>
+<button class="btn btn-ghost btn-icon" onClick="{{ w.onSpeak }}" aria-label="Nghe" style="width:40px;height:40px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"></path><path d="M16 9a5 5 0 0 1 0 6"></path></svg></button>
+</div>
+</sc-for>
+</div>
+
+<div style="display:flex;flex-direction:column">
+<div style="padding-bottom:8px;border-bottom:1px solid var(--color-text)"><span style="font-family:var(--font-heading);font-weight:600;font-size:19px">II. Phrases <span style="font-weight:400;font-style:italic;color:var(--color-neutral-700)">· Mẫu câu</span></span></div>
+<sc-for list="{{ topic.phrases }}" as="ph" hint-placeholder-count="4">
+<div style="display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--color-divider)">
+<span style="flex:1;display:flex;flex-direction:column;gap:3px">
+<span style="font-family:var(--font-heading);font-style:italic;font-size:20px;line-height:1.2">{{ ph.en }}</span>
+<span style="font-size:13.5px;color:var(--color-neutral-700)">{{ ph.vi }}</span>
+</span>
+<button class="btn btn-ghost btn-icon" onClick="{{ ph.onSpeak }}" aria-label="Nghe" style="width:40px;height:40px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"></path><path d="M16 9a5 5 0 0 1 0 6"></path></svg></button>
+</div>
+</sc-for>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:8px;border-bottom:1px solid var(--color-text)">
+<span style="font-family:var(--font-heading);font-weight:600;font-size:19px">III. Dialogue <span style="font-weight:400;font-style:italic;color:var(--color-neutral-700)">· Hội thoại</span></span>
+<button class="btn btn-ghost" onClick="{{ topic.playDialog }}" style="font-size:13px;padding-block:4px">Nghe cả đoạn</button>
+</div>
+<sc-for list="{{ topic.dialog }}" as="d" hint-placeholder-count="4">
+<button onClick="{{ d.onSpeak }}" style="display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;padding:2px 0;background:none;border:0;text-align:left;cursor:pointer;color:var(--color-text)">
+<span style="font-family:var(--font-heading);font-weight:600;font-size:17px;line-height:1.35;color:var(--color-accent-700)">{{ d.who }}</span>
+<span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:15px;line-height:1.45">{{ d.en }}</span><span style="font-size:13px;line-height:1.4;color:var(--color-neutral-700)">{{ d.vi }}</span></span>
+</button>
+</sc-for>
+</div>
+
+<button class="btn btn-primary" onClick="{{ topic.addAll }}" disabled="{{ topic.allIn }}" style="min-height:48px;font-size:15px">{{ topic.cta }}</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isReview }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:18px;min-height:100%">
+<div style="display:flex;justify-content:space-between;align-items:flex-end">
+<div>
+<div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent-700)">Ôn tập</div>
+<h1 style="font-family:var(--font-heading);font-weight:400;font-size:36px;line-height:1.05;margin:6px 0 0">Thẻ đến hạn</h1>
+</div>
+<span style="font-size:13px;font-feature-settings:'tnum';color:var(--color-neutral-700)">còn {{ remaining }}</span>
+</div>
+<div style="position:relative;height:2px;background:var(--color-neutral-200)"><div style="position:absolute;left:0;top:0;bottom:0;background:var(--color-accent);width:{{ sessionPct }}"></div></div>
+
+<sc-if value="{{ hasCard }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div onClick="{{ flip }}" style="cursor:pointer;min-height:380px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:28px 24px;text-align:center;border:1px solid var(--color-divider);outline:1px solid var(--color-divider);outline-offset:-7px;border-radius:var(--radius-md);background:var(--color-neutral-100);box-shadow:var(--shadow-sm)">
+<span class="tag tag-accent">{{ card.pos }}</span>
+<div style="font-family:var(--font-heading);font-weight:400;font-size:{{ card.frontSize }};line-height:1.05;text-wrap:balance">{{ card.front }}</div>
+<sc-if value="{{ card.showSub }}" hint-placeholder-val="{{ true }}"><div style="font-size:14px;color:var(--color-neutral-700)">{{ card.ipa }}</div></sc-if>
+<button class="btn btn-ghost btn-icon" onClick="{{ speakCard }}" aria-label="Phát âm"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"></path><path d="M16 9a5 5 0 0 1 0 6"></path><path d="M19.364 18.364a9 9 0 0 0 0-12.728"></path></svg></button>
+<sc-if value="{{ flipped }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:100%">
+<div style="width:48px;height:1px;background:var(--color-accent)"></div>
+<div style="font-family:var(--font-heading);font-weight:600;font-size:22px;line-height:1.2">{{ card.back }}</div>
+<div style="font-size:14px;line-height:1.5;font-style:italic;color:var(--color-neutral-800);text-wrap:pretty">{{ card.ex }}</div>
+</div>
+</sc-if>
+<sc-if value="{{ notFlipped }}" hint-placeholder-val="{{ true }}"><div style="font-size:12px;color:var(--color-neutral-600)">Chạm để lật thẻ</div></sc-if>
+</div>
+<sc-if value="{{ flipped }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px">
+<sc-for list="{{ ratings }}" as="r" hint-placeholder-count="4">
+<button class="{{ r.cls }}" onClick="{{ r.onClick }}" style="flex-direction:column;gap:2px;padding:10px 4px;min-height:58px">
+<span style="font-size:14px">{{ r.label }}</span>
+<span style="font-size:11px;opacity:.75;font-feature-settings:'tnum'">{{ r.hint }}</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ notFlipped }}" hint-placeholder-val="{{ true }}">
+<button class="btn btn-primary" onClick="{{ flip }}" style="min-height:48px;font-size:15px">Lật thẻ</button>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ noCard }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px;padding:40px 8px">
+<div style="font-family:var(--font-heading);font-size:72px;line-height:1;color:var(--color-accent);font-feature-settings:'tnum'">{{ reviewed }}</div>
+<div style="font-family:var(--font-heading);font-size:26px;line-height:1.2">Xong phần ôn hôm nay</div>
+<p style="margin:0;font-size:14px;line-height:1.55;color:var(--color-neutral-700);max-width:270px">Không còn thẻ nào đến hạn. Thẻ tiếp theo sẽ xuất hiện vào ngày mai.</p>
+<div style="display:flex;gap:10px;margin-top:8px">
+<button class="btn btn-secondary" onClick="{{ goHome }}" style="min-height:44px">Trang chủ</button>
+<button class="btn btn-primary" onClick="{{ openAdd }}" style="min-height:44px">Thêm từ mới</button>
+</div>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isBook }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;justify-content:space-between;align-items:flex-end">
+<div>
+<div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent-700)">{{ wordCount }} từ</div>
+<h1 style="font-family:var(--font-heading);font-weight:400;font-size:36px;line-height:1.05;margin:6px 0 0">Sổ từ vựng</h1>
+</div>
+<button class="btn btn-primary btn-icon" onClick="{{ openAdd }}" aria-label="Thêm từ" style="width:44px;height:44px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg></button>
+</div>
+<div style="position:relative">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-neutral-600)" stroke-width="1.6" stroke-linecap="round" style="position:absolute;left:12px;top:50%;transform:translateY(-50%)"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+<input class="input" value="{{ q }}" onChange="{{ setQ }}" placeholder="Tìm từ hoặc nghĩa…" style="padding-left:36px;min-height:44px;font-size:15px;box-sizing:border-box">
+</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap">
+<sc-for list="{{ filters }}" as="f" hint-placeholder-count="4">
+<button onClick="{{ f.onClick }}" style="padding:6px 12px;font-size:13px;border-radius:999px;cursor:pointer;background:transparent;border:1px solid {{ f.border }};color:{{ f.color }}">{{ f.label }}</button>
+</sc-for>
+</div>
+<div style="border-top:1px solid var(--color-divider)">
+<sc-for list="{{ rows }}" as="w" hint-placeholder-count="6">
+<div style="border-bottom:1px solid var(--color-divider)">
+<button onClick="{{ w.onToggle }}" style="width:100%;display:flex;align-items:center;gap:12px;padding:13px 0;background:none;border:0;text-align:left;cursor:pointer;color:var(--color-text)">
+<span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+<span style="display:flex;align-items:baseline;gap:8px"><span style="font-family:var(--font-heading);font-weight:600;font-size:20px;line-height:1.15">{{ w.w }}</span><span style="font-size:11.5px;font-style:italic;color:var(--color-neutral-600)">{{ w.pos }}</span></span>
+<span style="font-size:13.5px;color:var(--color-neutral-800);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ w.vi }}</span>
+</span>
+<span style="display:flex;gap:3px" title="{{ w.levelLabel }}">
+<sc-for list="{{ w.dots }}" as="d" hint-placeholder-count="5"><span style="width:4px;height:14px;background:{{ d.bg }}"></span></sc-for>
+</span>
+</button>
+<sc-if value="{{ w.open }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:10px;padding:0 0 16px">
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="font-size:13px;color:var(--color-neutral-700)">{{ w.ipa }}</span><span class="tag tag-accent">{{ w.levelLabel }}</span><span class="tag tag-neutral">{{ w.dueLabel }}</span></div>
+<p style="margin:0;font-size:14px;line-height:1.5;font-style:italic;color:var(--color-neutral-800)">{{ w.ex }}</p>
+<div style="display:flex;gap:8px">
+<button class="btn btn-secondary" onClick="{{ w.onSpeak }}" style="min-height:40px">Nghe</button>
+<button class="btn btn-ghost" onClick="{{ w.onDelete }}" style="min-height:40px;color:var(--color-neutral-700)">Xoá</button>
+</div>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+<sc-if value="{{ emptyRows }}" hint-placeholder-val="{{ false }}"><p style="margin:0;padding:24px 0;text-align:center;font-size:14px;color:var(--color-neutral-700)">Không tìm thấy từ nào.</p></sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isStats }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:24px">
+<div>
+<div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent-700)">Tiến độ</div>
+<h1 style="font-family:var(--font-heading);font-weight:400;font-size:36px;line-height:1.05;margin:6px 0 0">Nhật ký học</h1>
+</div>
+<div style="display:flex;align-items:flex-end;gap:14px;padding-bottom:18px;border-bottom:1px solid var(--color-divider)">
+<span style="font-family:var(--font-heading);font-weight:400;font-size:96px;line-height:.85;color:var(--color-accent);font-feature-settings:'tnum'">{{ streak }}</span>
+<span style="font-size:14px;line-height:1.4;color:var(--color-neutral-800);padding-bottom:6px">ngày học<br>liên tiếp</span>
+</div>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr))">
+<sc-for list="{{ kpis }}" as="k" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:2px;padding:0 10px;border-left:1px solid var(--color-divider)">
+<span style="font-family:var(--font-heading);font-size:30px;line-height:1.1;font-feature-settings:'tnum'">{{ k.v }}</span>
+<span style="font-size:12px;color:var(--color-neutral-700)">{{ k.l }}</span>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<span style="font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent-700)">5 tuần gần đây</span>
+<div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px">
+<sc-for list="{{ dows }}" as="d" hint-placeholder-count="7"><span style="font-size:11px;text-align:center;color:var(--color-neutral-600)">{{ d }}</span></sc-for>
+<sc-for list="{{ heat }}" as="h" hint-placeholder-count="35"><span style="aspect-ratio:1;border-radius:var(--radius-sm);background:{{ h.bg }};border:1px solid {{ h.border }}"></span></sc-for>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px">
+<span style="font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent-700)">Mức độ ghi nhớ</span>
+<sc-for list="{{ mastery }}" as="m" hint-placeholder-count="4">
+<div style="display:grid;grid-template-columns:84px minmax(0,1fr) 28px;align-items:center;gap:10px;font-size:13px">
+<span>{{ m.label }}</span>
+<span style="position:relative;height:6px;border:1px solid var(--color-divider)"><span style="position:absolute;left:0;top:0;bottom:0;width:{{ m.pct }};background:var(--color-accent-400)"></span></span>
+<span style="text-align:right;font-feature-settings:'tnum'">{{ m.n }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+</div>
+
+<nav style="flex:none;display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--color-divider);padding:0 6px 18px;background:var(--color-bg)">
+<button onClick="{{ goHome }}" style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 4px;background:none;border:0;border-top:2px solid {{ tabs.home.rule }};margin-top:-1px;cursor:pointer;font-size:11.5px;color:{{ tabs.home.color }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>Hôm nay</button>
+<button onClick="{{ goTopics }}" style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 4px;background:none;border:0;border-top:2px solid {{ tabs.topics.rule }};margin-top:-1px;cursor:pointer;font-size:11.5px;color:{{ tabs.topics.color }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"></path></svg>Chủ đề</button>
+<button onClick="{{ goReview }}" style="position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 4px;background:none;border:0;border-top:2px solid {{ tabs.review.rule }};margin-top:-1px;cursor:pointer;font-size:11.5px;color:{{ tabs.review.color }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path></svg>Ôn tập
+<sc-if value="{{ hasDue }}" hint-placeholder-val="{{ true }}"><span style="position:absolute;top:6px;left:calc(50% + 8px);min-width:16px;height:16px;padding:0 4px;box-sizing:border-box;border-radius:8px;border:1px solid var(--color-accent);background:var(--color-bg);color:var(--color-accent-700);font-size:10px;line-height:14px;font-feature-settings:'tnum'">{{ dueCount }}</span></sc-if>
+</button>
+<button onClick="{{ goBook }}" style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 4px;background:none;border:0;border-top:2px solid {{ tabs.book.rule }};margin-top:-1px;cursor:pointer;font-size:11.5px;color:{{ tabs.book.color }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg>Sổ từ</button>
+<button onClick="{{ goStats }}" style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 4px;background:none;border:0;border-top:2px solid {{ tabs.stats.rule }};margin-top:-1px;cursor:pointer;font-size:11.5px;color:{{ tabs.stats.color }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"></path><path d="m19 9-5 5-4-4-3 3"></path></svg>Tiến độ</button>
+</nav>
+
+<sc-if value="{{ adding }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;background:color-mix(in srgb, var(--color-neutral-900) 35%, transparent)">
+<div onClick="{{ closeAdd }}" style="flex:1"></div>
+<div style="display:flex;flex-direction:column;gap:14px;padding:22px 24px 32px;background:var(--color-bg);border-top:1px solid var(--color-divider);border-radius:20px 20px 0 0;box-shadow:var(--shadow-lg)">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:24px">Thêm từ mới</h2>
+<button class="btn btn-ghost btn-icon" onClick="{{ closeAdd }}" aria-label="Đóng" style="color:var(--color-neutral-700)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button>
+</div>
+<label class="field" style="display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;color:var(--color-neutral-700)">Từ / cụm từ tiếng Anh</span><input class="input" value="{{ draft.w }}" onChange="{{ setW }}" placeholder="vd. take for granted" style="min-height:44px;font-size:15px;box-sizing:border-box"></label>
+<label class="field" style="display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;color:var(--color-neutral-700)">Nghĩa tiếng Việt</span><input class="input" value="{{ draft.vi }}" onChange="{{ setVi }}" placeholder="vd. coi là điều hiển nhiên" style="min-height:44px;font-size:15px;box-sizing:border-box"></label>
+<label class="field" style="display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;color:var(--color-neutral-700)">Câu ví dụ (tuỳ chọn)</span><input class="input" value="{{ draft.ex }}" onChange="{{ setEx }}" placeholder="Câu bạn gặp từ này" style="min-height:44px;font-size:15px;box-sizing:border-box"></label>
+<button class="btn btn-primary" onClick="{{ saveWord }}" disabled="{{ cantSave }}" style="min-height:48px;font-size:15px;margin-top:4px">Lưu vào sổ</button>
+</div>
+</div>
+</sc-if>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;dailyGoal&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:20,&quot;min&quot;:5,&quot;max&quot;:100,&quot;step&quot;:5,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Học tập&quot;},&quot;cardDirection&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;en-vi&quot;,&quot;options&quot;:[&quot;en-vi&quot;,&quot;vi-en&quot;],&quot;tsType&quot;:&quot;'en-vi' | 'vi-en'&quot;,&quot;section&quot;:&quot;Học tập&quot;},&quot;showIPA&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Học tập&quot;}}">
+class Component extends DCLogic {
+  state = { tab: 'home', words: null, queue: null, total: 0, flipped: false, reviewed: 0, added: 0, listened: false, showVi: false, openIdx: -1, q: '', filter: 'all', adding: false, draft: { w: '', vi: '', ex: '' } };
+
+  topics() {
+    if (this._T) return this._T;
+    const raw = [
+      ['greet', 'Greetings & small talk', 'Chào hỏi & hỏi thăm', [
+        ['hello', '/həˈloʊ/', 'interj', 'xin chào'], ['fine', '/faɪn/', 'adj', 'ổn, khỏe'], ['tired', '/taɪɚd/', 'adj', 'mệt'],
+        ['busy', '/ˈbɪz.i/', 'adj', 'bận'], ['friend', '/frend/', 'n', 'bạn bè'], ['weekend', '/ˈwiːk.end/', 'n', 'cuối tuần']],
+        [["How are you doing?", 'Dạo này bạn thế nào?'], ["I'm fine, thanks. And you?", 'Mình ổn, cảm ơn. Còn bạn?'], ['Nice to meet you.', 'Rất vui được gặp bạn.'], ['How was your weekend?', 'Cuối tuần của bạn thế nào?']],
+        [['Hi Lan! How are you doing?', 'Chào Lan! Dạo này thế nào?'], ["I'm fine, thanks. A bit tired. And you?", 'Mình ổn, cảm ơn. Hơi mệt. Còn bạn?'], ['Busy, but fine. How was your weekend?', 'Bận nhưng ổn. Cuối tuần của bạn thế nào?'], ['Great! I visited my family.', 'Tuyệt lắm! Mình về thăm gia đình.']]],
+      ['weather', 'Weather', 'Thời tiết', [
+        ['sunny', '/ˈsʌn.i/', 'adj', 'nắng'], ['rainy', '/ˈreɪ.ni/', 'adj', 'có mưa'], ['hot', '/hɑːt/', 'adj', 'nóng'],
+        ['cold', '/koʊld/', 'adj', 'lạnh'], ['cloudy', '/ˈklaʊ.di/', 'adj', 'nhiều mây'], ['umbrella', '/ʌmˈbrel.ə/', 'n', 'cái ô']],
+        [["What's the weather like today?", 'Hôm nay thời tiết thế nào?'], ["It's very hot today.", 'Hôm nay nóng quá.'], ['It looks like rain.', 'Trời có vẻ sắp mưa.'], ["Don't forget your umbrella.", 'Đừng quên mang ô nhé.']],
+        [["What's the weather like today?", 'Hôm nay thời tiết thế nào?'], ["It's sunny now, but it looks like rain later.", 'Giờ đang nắng, nhưng lát nữa có vẻ mưa.'], ["Really? I don't have an umbrella.", 'Thật à? Mình không có ô.'], ['Take mine. I have two.', 'Cầm của mình đi. Mình có hai cái.']]],
+      ['fashion', 'Clothes & fashion', 'Thời trang', [
+        ['shirt', '/ʃɝːt/', 'n', 'áo sơ mi'], ['dress', '/dres/', 'n', 'váy liền'], ['shoes', '/ʃuːz/', 'n', 'giày'],
+        ['jacket', '/ˈdʒæk.ɪt/', 'n', 'áo khoác'], ['size', '/saɪz/', 'n', 'kích cỡ'], ['try on', '/traɪ ɑːn/', 'phr. v', 'mặc thử']],
+        [['Can I try this on?', 'Tôi mặc thử cái này được không?'], ['Do you have a smaller size?', 'Có cỡ nhỏ hơn không?'], ['It fits well.', 'Cái này vừa lắm.'], ['I love your jacket!', 'Áo khoác của bạn đẹp quá!']],
+        [['Excuse me, can I try this jacket on?', 'Xin lỗi, tôi mặc thử áo khoác này được không?'], ['Of course. What size are you?', 'Tất nhiên. Bạn mặc cỡ nào?'], ['Medium, I think.', 'Chắc là cỡ M.'], ['Here you are. The fitting room is over there.', 'Của bạn đây. Phòng thử đồ ở đằng kia.']]],
+      ['food', 'Food & drinks', 'Ăn uống', [
+        ['menu', '/ˈmen.juː/', 'n', 'thực đơn'], ['order', '/ˈɔːr.dɚ/', 'v', 'gọi món'], ['delicious', '/dɪˈlɪʃ.əs/', 'adj', 'ngon'],
+        ['spicy', '/ˈspaɪ.si/', 'adj', 'cay'], ['bill', '/bɪl/', 'n', 'hoá đơn'], ['water', '/ˈwɑː.t̬ɚ/', 'n', 'nước']],
+        [['Can I see the menu, please?', 'Cho tôi xem thực đơn được không?'], ["I'd like a coffee, please.", 'Cho tôi một ly cà phê.'], ['Is it spicy?', 'Món này có cay không?'], ['Can I have the bill?', 'Cho tôi xin hoá đơn.']],
+        [['Are you ready to order?', 'Anh/chị gọi món chưa ạ?'], ["Yes. I'd like the chicken noodle soup.", 'Rồi. Cho tôi phở gà.'], ['Anything to drink?', 'Anh/chị uống gì không?'], ['Just water, please.', 'Cho tôi nước lọc thôi.']]],
+      ['work', 'At work', 'Công việc', [
+        ['meeting', '/ˈmiː.t̬ɪŋ/', 'n', 'cuộc họp'], ['email', '/ˈiː.meɪl/', 'n', 'thư điện tử'], ['deadline', '/ˈded.laɪn/', 'n', 'hạn chót'],
+        ['colleague', '/ˈkɑː.liːɡ/', 'n', 'đồng nghiệp'], ['schedule', '/ˈskedʒ.uːl/', 'n', 'lịch làm việc'], ['report', '/rɪˈpɔːrt/', 'n', 'báo cáo']],
+        [["Let's have a meeting at ten.", 'Mình họp lúc 10 giờ nhé.'], ["I'll send you an email.", 'Tôi sẽ gửi email cho bạn.'], ['When is the deadline?', 'Hạn chót là khi nào?'], ['Can we talk later?', 'Lát nữa mình nói chuyện được không?']],
+        [['Do you have time for a quick meeting?', 'Bạn có thời gian họp nhanh không?'], ['Sure. What about?', 'Được chứ. Về việc gì?'], ['The new report. The deadline is Friday.', 'Bản báo cáo mới. Hạn chót là thứ Sáu.'], ["OK. Let's meet at two.", 'OK. Hẹn gặp lúc 2 giờ.']]],
+      ['travel', 'Travel', 'Du lịch', [
+        ['ticket', '/ˈtɪk.ɪt/', 'n', 'vé'], ['airport', '/ˈer.pɔːrt/', 'n', 'sân bay'], ['hotel', '/hoʊˈtel/', 'n', 'khách sạn'],
+        ['passport', '/ˈpæs.pɔːrt/', 'n', 'hộ chiếu'], ['map', '/mæp/', 'n', 'bản đồ'], ['luggage', '/ˈlʌɡ.ɪdʒ/', 'n', 'hành lý']],
+        [['Where is the bus stop?', 'Trạm xe buýt ở đâu?'], ['How much is a ticket?', 'Vé bao nhiêu tiền?'], ['I have a reservation.', 'Tôi đã đặt phòng trước.'], ['Can you help me, please?', 'Bạn giúp tôi được không?']],
+        [['Hello, I have a reservation. My name is Minh.', 'Xin chào, tôi đã đặt phòng. Tên tôi là Minh.'], ['Welcome! Can I see your passport?', 'Chào mừng! Cho tôi xem hộ chiếu được không?'], ['Here you are.', 'Của bạn đây.'], ['Thank you. Your room is 305.', 'Cảm ơn. Phòng của bạn là 305.']]]
+    ];
+    this._T = raw.map(([id, en, vi, words, phrases, dialog]) => {
+      const lines = phrases.concat(dialog).map(x => x[0]);
+      return { id, en, vi, mins: 15, phrases, dialog,
+        words: words.map(([w, ipa, pos, wvi]) => ({ w, ipa, pos, vi: wvi, topic: id, ex: lines.find(l => l.toLowerCase().includes(w.toLowerCase())) || '' })) };
+    });
+    return this._T;
+  }
+
+  seed() {
+    const T = this.topics();
+    const pick = T[0].words.concat(T[1].words.slice(0, 3));
+    const st = [[1, 0], [3, 2], [0, 0], [2, 0], [5, 20], [4, 6], [1, 0], [0, 0], [2, 1]];
+    return pick.map((w, i) => ({ ...w, box: st[i][0], due: st[i][1] }));
+  }
+
+  componentDidMount() {
+    let words = null, reviewed = 0, added = 0;
+    try {
+      words = JSON.parse(localStorage.getItem('folio-words-v2'));
+      reviewed = +localStorage.getItem('folio-reviewed-v1') || 0;
+      added = +localStorage.getItem('folio-added-v1') || 0;
+    } catch (e) {}
+    this.setState({ words: Array.isArray(words) && words.length ? words : this.seed(), reviewed, added });
+  }
+
+  persist(patch) {
+    try {
+      if (patch.words) localStorage.setItem('folio-words-v2', JSON.stringify(patch.words));
+      if (patch.reviewed != null) localStorage.setItem('folio-reviewed-v1', String(patch.reviewed));
+      if (patch.added != null) localStorage.setItem('folio-added-v1', String(patch.added));
+    } catch (e) {}
+  }
+
+  words() { return this.state.words || this.seed(); }
+
+  speak(text) {
+    try {
+      const u = new SpeechSynthesisUtterance(text); u.lang = 'en-US'; u.rate = 0.9;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    } catch (e) {}
+  }
+
+  buildQueue() {
+    const ws = this.words();
+    const q = ws.map((w, i) => i).filter(i => ws[i].due <= 0).sort((a, b) => ws[a].box - ws[b].box);
+    return q;
+  }
+
+  goReview = () => {
+    const q = this.state.queue && this.state.queue.length ? this.state.queue : this.buildQueue();
+    this.setState({ tab: 'review', queue: q, total: this.state.queue && this.state.queue.length ? this.state.total : q.length, flipped: false });
+  };
+
+  plan(box, kind) {
+    const iv = [0, 1, 3, 7, 14, 30];
+    if (kind === 'again') return { box: 0, due: 0 };
+    if (kind === 'hard') return { box: Math.max(1, box), due: 1 };
+    if (kind === 'good') { const b = Math.min(5, box + 1); return { box: b, due: iv[b] }; }
+    const b = Math.min(5, box + 2); return { box: b, due: iv[b] * 2 };
+  }
+
+  fmt(d) { return d === 0 ? '< 10 phút' : d < 30 ? d + ' ngày' : Math.round(d / 30) + ' tháng'; }
+
+  rate(kind) {
+    const q = this.state.queue || [];
+    if (!q.length) return;
+    const i = q[0];
+    const words = this.words().slice();
+    const p = this.plan(words[i].box, kind);
+    words[i] = { ...words[i], ...p };
+    const queue = q.slice(1);
+    if (kind === 'again') queue.push(i);
+    const reviewed = this.state.reviewed + 1;
+    this.persist({ words, reviewed });
+    this.setState({ words, queue, reviewed, flipped: false });
+  }
+
+  levelOf(box) { return box === 0 ? 'Mới' : box <= 2 ? 'Đang học' : box <= 4 ? 'Quen' : 'Đã thuộc'; }
+
+  renderVals() {
+    const s = this.state, p = this.props;
+    const ws = this.words();
+    const goal = p.dailyGoal ?? 20;
+    const dir = p.cardDirection ?? 'en-vi';
+    const showIPA = p.showIPA ?? true;
+    const dueCount = s.queue ? s.queue.length : ws.filter(w => w.due <= 0).length;
+    const tabStyle = t => ({ rule: s.tab === t ? 'var(--color-accent)' : 'transparent', color: s.tab === t ? 'var(--color-accent-700)' : 'var(--color-neutral-600)' });
+    const days = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+    const now = new Date();
+
+    const openAdd = () => this.setState({ adding: true, draft: { w: '', vi: '', ex: '' } });
+    const doneReview = s.reviewed > 0 && dueCount === 0;
+    const tasks = [
+      { title: 'Ôn thẻ đến hạn', sub: doneReview ? `Đã ôn ${s.reviewed} thẻ` : `${dueCount} thẻ · khoảng ${Math.max(1, Math.round(dueCount * 0.4))} phút`, done: doneReview, onClick: this.goReview },
+      { title: 'Ghi 3 từ mới vào sổ', sub: `${Math.min(3, s.added)} / 3 từ bạn gặp hôm nay`, done: s.added >= 3, onClick: openAdd },
+      { title: 'Nghe & nhắc lại câu của ngày', sub: s.listened ? 'Đã nghe' : 'Bấm để nghe, rồi đọc to theo', done: s.listened, onClick: () => { this.speak("It's not about having time. It's about making time."); this.setState({ listened: true }); } }
+    ].map(t => ({ ...t, ring: t.done ? 'var(--color-accent)' : 'var(--color-neutral-400)', strike: t.done ? 'line-through' : 'none' }));
+
+    const hardWord = ws.slice().sort((a, b) => a.box - b.box)[0] || { w: '', ipa: '', vi: '' };
+
+    const ci = s.queue && s.queue.length ? s.queue[0] : -1;
+    const cw = ci >= 0 ? ws[ci] : null;
+    const card = cw ? {
+      pos: cw.pos,
+      front: dir === 'en-vi' ? cw.w : cw.vi,
+      back: dir === 'en-vi' ? cw.vi : cw.w,
+      frontSize: (dir === 'en-vi' ? cw.w : cw.vi).length > 14 ? '34px' : '46px',
+      showSub: showIPA && (dir === 'en-vi' || s.flipped),
+      ipa: cw.ipa, ex: cw.ex
+    } : { pos: '', front: '', back: '', frontSize: '46px', showSub: false, ipa: '', ex: '' };
+    const labels = { again: 'Quên', hard: 'Khó', good: 'Nhớ', easy: 'Dễ' };
+    const ratings = ['again', 'hard', 'good', 'easy'].map(k => ({
+      label: labels[k], hint: cw ? this.fmt(this.plan(cw.box, k).due) : '',
+      cls: k === 'good' ? 'btn btn-primary' : 'btn btn-secondary',
+      onClick: () => this.rate(k)
+    }));
+    const total = Math.max(s.total, 1);
+    const remaining = s.queue ? s.queue.length : dueCount;
+
+    const ql = s.q.trim().toLowerCase();
+    const rows = ws.map((w, i) => ({ w, i })).filter(({ w }) => {
+      if (ql && !(w.w.toLowerCase().includes(ql) || w.vi.toLowerCase().includes(ql))) return false;
+      if (s.filter === 'learning') return w.box <= 2;
+      if (s.filter === 'known') return w.box >= 3 && w.box < 5;
+      if (s.filter === 'mastered') return w.box === 5;
+      return true;
+    }).map(({ w, i }) => ({
+      ...w, levelLabel: this.levelOf(w.box), open: s.openIdx === i,
+      dueLabel: w.due <= 0 ? 'Đến hạn hôm nay' : `Ôn sau ${this.fmt(w.due)}`,
+      dots: [1, 2, 3, 4, 5].map(n => ({ bg: n <= w.box ? 'var(--color-accent)' : 'var(--color-neutral-300)' })),
+      onToggle: () => this.setState({ openIdx: s.openIdx === i ? -1 : i }),
+      onSpeak: () => this.speak(w.w),
+      onDelete: () => { const words = ws.filter((_, j) => j !== i); this.persist({ words }); this.setState({ words, openIdx: -1, queue: null }); }
+    }));
+    const filters = [['all', 'Tất cả'], ['learning', 'Đang học'], ['known', 'Quen'], ['mastered', 'Đã thuộc']].map(([k, l]) => ({
+      label: l, border: s.filter === k ? 'var(--color-accent)' : 'var(--color-divider)', color: s.filter === k ? 'var(--color-accent-700)' : 'var(--color-neutral-800)',
+      onClick: () => this.setState({ filter: k })
+    }));
+
+    const lv = [0, 2, 1, 3, 2, 0, 3, 1, 2, 2, 3, 0, 1, 3, 2, 3, 3, 1, 2, 3, 2, 3, 2, 3, 3, 2, 1, 3, 2, 3, 3, 2, 3, 3];
+    const todayLv = s.reviewed === 0 ? 0 : s.reviewed < goal / 2 ? 1 : s.reviewed < goal ? 2 : 3;
+    const heatBg = ['transparent', 'var(--color-accent-200)', 'var(--color-accent-400)', 'var(--color-accent-600)'];
+    const heat = lv.concat([todayLv]).map((v, i) => ({ bg: heatBg[v], border: i === 34 ? 'var(--color-text)' : v ? 'transparent' : 'var(--color-divider)' }));
+    const groups = [['Mới', w => w.box === 0], ['Đang học', w => w.box > 0 && w.box <= 2], ['Quen', w => w.box >= 3 && w.box <= 4], ['Đã thuộc', w => w.box === 5]];
+    const mastery = groups.map(([label, f]) => { const n = ws.filter(f).length; return { label, n, pct: (ws.length ? n / ws.length * 100 : 0) + '%' }; });
+
+    const setDraft = k => e => this.setState({ draft: { ...s.draft, [k]: e.target.value } });
+
+    return {
+      isHome: s.tab === 'home', isReview: s.tab === 'review', isBook: s.tab === 'book', isStats: s.tab === 'stats',
+      tabs: { home: tabStyle('home'), review: tabStyle('review'), book: tabStyle('book'), stats: tabStyle('stats') },
+      goHome: () => this.setState({ tab: 'home' }), goReview: this.goReview,
+      goBook: () => this.setState({ tab: 'book' }), goStats: () => this.setState({ tab: 'stats' }),
+      dateLabel: `${days[now.getDay()]} · ${now.getDate()} tháng ${now.getMonth() + 1}`,
+      reviewed: s.reviewed, goal, goalPct: Math.min(100, s.reviewed / goal * 100) + '%',
+      tasks, hardWord, dueCount, hasDue: dueCount > 0,
+      showVi: s.showVi, viLabel: s.showVi ? 'Ẩn nghĩa' : 'Xem nghĩa tiếng Việt',
+      toggleVi: () => this.setState({ showVi: !s.showVi }),
+      speakSentence: () => this.speak("It's not about having time. It's about making time."),
+      hasCard: !!cw, noCard: !cw, card, flipped: s.flipped, notFlipped: !s.flipped,
+      flip: () => this.setState({ flipped: !s.flipped }),
+      speakCard: e => { e.stopPropagation(); if (cw) this.speak(cw.w); },
+      ratings, remaining, sessionPct: (s.total ? (1 - remaining / total) * 100 : 100) + '%',
+      wordCount: ws.length, q: s.q, setQ: e => this.setState({ q: e.target.value }),
+      filters, rows, emptyRows: rows.length === 0,
+      streak: 12 + (s.reviewed > 0 ? 1 : 0),
+      kpis: [{ v: ws.length, l: 'từ trong sổ' }, { v: ws.filter(w => w.box === 5).length, l: 'đã thuộc' }, { v: s.reviewed, l: 'thẻ hôm nay' }],
+      dows: ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'], heat, mastery,
+      adding: s.adding, openAdd, closeAdd: () => this.setState({ adding: false }),
+      draft: s.draft, setW: setDraft('w'), setVi: setDraft('vi'), setEx: setDraft('ex'),
+      cantSave: !(s.draft.w.trim() && s.draft.vi.trim()),
+      saveWord: () => {
+        const d = s.draft; if (!d.w.trim() || !d.vi.trim()) return;
+        const words = [{ w: d.w.trim(), ipa: '', pos: 'mới', vi: d.vi.trim(), ex: d.ex.trim(), box: 0, due: 0 }].concat(ws);
+        const added = s.added + 1;
+        this.persist({ words, added });
+        this.setState({ words, added, adding: false, queue: s.queue ? s.queue.concat([]) .map(x => x + 1).concat([0]) : null, total: s.queue ? s.total + 1 : s.total, tab: s.tab === 'review' ? 'book' : s.tab, openIdx: -1 });
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
