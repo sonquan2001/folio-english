@@ -1,25 +1,32 @@
-# CODING AGENTS: READ THIS FIRST
+# Folio English
 
-This is a **handoff bundle** from Claude Design (claude.ai/design).
+Ứng dụng học tiếng Anh cá nhân (dành cho điện thoại), dựng từ bản thiết kế Claude Design trong `project/` (`Folio English.dc.html`, hệ thiết kế *Classical*).
 
-A user mocked up designs in HTML/CSS/JS using an AI design tool, then exported this bundle so a coding agent can implement the designs for real.
+## Chạy
 
-## What you should do — IMPORTANT
+```bash
+npm install
+npm run dev      # mở http://localhost:5173 (dùng --host nên mở được từ điện thoại cùng Wi‑Fi)
+npm run build    # bản production trong dist/
+```
 
-**Read the chat transcripts first.** There are 1 chat transcript(s) in `chats/`. The transcripts show the full back-and-forth between the user and the design assistant — they tell you **what the user actually wants** and **where they landed** after iterating. Don't skip them. The final HTML files are the output, but the chat is where the intent lives.
+`dist/` là trang tĩnh — đưa lên bất kỳ host tĩnh nào (GitHub Pages, Netlify, Vercel…), mở trên điện thoại rồi chọn **Thêm vào màn hình chính** để dùng như app (có manifest + service worker để chạy offline).
 
-**Read `project/Folio English.dc.html` in full.** The user had this file open when they triggered the handoff, so it's almost certainly the primary design they want built. Read it top to bottom — don't skim. Then **follow its imports**: open every file it pulls in (shared components, CSS, scripts) so you understand how the pieces fit together before you start implementing.
+## Màn hình
 
-**If anything is ambiguous, ask the user to confirm before you start implementing.** It's much cheaper to clarify scope up front than to build the wrong thing.
+- **Hôm nay** — mục tiêu ôn thẻ, 3 việc trong ngày, câu của ngày (đổi mỗi ngày, có phát âm), từ đang khó nhớ.
+- **Chủ đề** — 6 chủ đề (chào hỏi, thời tiết, thời trang, ăn uống, công việc, du lịch): từ vựng, mẫu câu, hội thoại; thêm cả chủ đề vào sổ để ôn.
+- **Ôn tập** — flashcard lặp lại ngắt quãng (Quên / Khó / Nhớ / Dễ, hộp Leitner 0–5, khoảng 1·3·7·14·30 ngày).
+- **Sổ từ** — tìm kiếm, lọc theo mức độ, thêm/xoá từ.
+- **Tiến độ** — chuỗi ngày học, bản đồ nhiệt 5 tuần, mức độ ghi nhớ.
 
-## About the design files
+Dữ liệu lưu trong `localStorage` của trình duyệt (khoá `folio-english-v1`). Phát âm dùng Web Speech API của trình duyệt.
 
-The design medium is **HTML/CSS/JS** — these are prototypes, not production code. Your job is to **recreate them pixel-perfectly** in whatever technology makes sense for the target codebase (React, Vue, native, whatever fits). Match the visual output; don't copy the prototype's internal structure unless it happens to fit.
+## Cấu trúc
 
-**Don't render these files in a browser or take screenshots unless the user asks you to.** Everything you need — dimensions, colors, layout rules — is spelled out in the source. Read the HTML and CSS directly; a screenshot won't tell you anything they don't.
-
-## Bundle contents
-
-- `README.md` — this file
-- `chats/` — conversation transcripts (read these!)
-- `project/` — the `Thiết kế app học tiếng Anh` project files (HTML prototypes, assets, components)
+- `src/App.tsx` — trạng thái, hàng đợi ôn tập, thanh tab; `SETTINGS` (mục tiêu/ngày, hướng thẻ, hiện IPA).
+- `src/screens/` — từng màn hình.
+- `src/data/topics.ts` — nội dung chủ đề.
+- `src/lib/store.ts` — lưu trữ, thuật toán ôn tập, streak.
+- `src/styles/classical.css` — token của hệ thiết kế (bản sao từ `project/_ds/…/styles.css`); `src/styles/app.css` — bố cục.
+- `project/`, `chats/` — bản thiết kế gốc để tham chiếu.
