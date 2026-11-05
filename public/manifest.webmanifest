@@ -1,0 +1,13 @@
+{
+  "name": "Folio English",
+  "short_name": "Folio",
+  "lang": "vi",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f3f2f2",
+  "theme_color": "#f3f2f2",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
